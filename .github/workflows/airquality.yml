@@ -2,7 +2,7 @@ name: Get Air Quality Data
 
 on:
   schedule:
-    - cron: '0 0,4,8,12,16,20 * * *' # Runs at exactly these UTC hours
+    - cron: '17 0,4,8,12,16,20 * * *' # Runs at exactly these UTC hours
   workflow_dispatch:
 
 permissions:
