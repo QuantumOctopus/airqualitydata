@@ -4,7 +4,10 @@ import json
 import urllib.request
 import urllib.parse
 
-API_TOKEN = "d9b42867df6f6c7f0805cdce3c65f1ed98743516"
+API_TOKEN = os.environ.get("WAQI_API_TOKEN")
+
+if not API_TOKEN:
+    raise ValueError("Missing WAQI_API_TOKEN environment variable!")
 
 CITIES = {
     "Blue Bell, PA": "geo:40.1448;-75.2688",
