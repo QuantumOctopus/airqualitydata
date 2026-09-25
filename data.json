@@ -1,1 +1,82 @@
-{}
+{
+    "Altoona, PA": [
+        {
+            "Date": "2026-09-25",
+            "Time": "05:14:00",
+            "PM2.5 ug/m3": 0.2,
+            "Temp F": 50.0,
+            "Humidity": 90,
+            "Ozone ug/m3": "",
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 1,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
+        }
+    ],
+    "Chicago, IL": [
+        {
+            "Date": "2026-09-25",
+            "Time": "04:14:00",
+            "PM2.5 ug/m3": 4.4,
+            "Temp F": 60.8,
+            "Humidity": 96,
+            "Ozone ug/m3": 54,
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 25,
+            "Pri. Pollutant": "Ozone",
+            "PM10 ug/m3": ""
+        }
+    ],
+    "New Delhi, India": [
+        {
+            "Date": "2026-09-25",
+            "Time": "14:45:00",
+            "PM2.5 ug/m3": 20,
+            "Temp F": 91.4,
+            "Humidity": 38,
+            "Ozone ug/m3": 195,
+            "NO2 ug/m3": 8.3,
+            "SO2 ug/m3": 24.6,
+            "CO ug/m3": 377,
+            "AQI+": 116,
+            "Pri. Pollutant": "Ozone",
+            "PM10 ug/m3": 45.5
+        }
+    ],
+    "Bengaluru, India": [
+        {
+            "Date": "2026-09-25",
+            "Time": "14:45:00",
+            "PM2.5 ug/m3": 13,
+            "Temp F": 78.8,
+            "Humidity": 60,
+            "Ozone ug/m3": 89,
+            "NO2 ug/m3": 2.7,
+            "SO2 ug/m3": 2.3,
+            "CO ug/m3": 192,
+            "AQI+": 58,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 3
+        }
+    ],
+    "Chennai, India": [
+        {
+            "Date": "2026-09-25",
+            "Time": "14:45:00",
+            "PM2.5 ug/m3": 15.3,
+            "Temp F": 93.2,
+            "Humidity": 50,
+            "Ozone ug/m3": 141,
+            "NO2 ug/m3": 3.2,
+            "SO2 ug/m3": 8.6,
+            "CO ug/m3": 192.5,
+            "AQI+": 102,
+            "Pri. Pollutant": "Ozone",
+            "PM10 ug/m3": 19.2
+        }
+    ]
+}
