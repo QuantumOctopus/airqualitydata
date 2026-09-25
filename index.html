@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,17 +55,17 @@
         }
 
         .download-btn {
-            position: absolute; 
-            top: 4.5rem; 
-            right: 1.5rem; 
-            background: #ffffff; 
-            color: #111827; 
-            padding: 0.5rem 1rem; 
-            text-decoration: none; 
+            position: absolute;
+            top: 4.5rem;
+            right: 1.5rem;
+            background: #ffffff;
+            color: #111827;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
             border: 1px solid var(--border-color);
-            border-radius: 6px; 
+            border-radius: 6px;
             font-size: 0.875rem;
-            font-weight: 500; 
+            font-weight: 500;
             transition: all 0.2s ease;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
@@ -178,21 +179,56 @@
         }
 
         /* AQI Colors */
-        .aqi-good { color: var(--good); }
-        .aqi-moderate { color: var(--moderate); }
-        .aqi-unhealthy-sensitive { color: var(--unhealthy-sensitive); }
-        .aqi-unhealthy { color: var(--unhealthy); }
-        .aqi-very-unhealthy { color: var(--very-unhealthy); }
-        .aqi-hazardous { color: var(--hazardous); }
-        
-        .bg-good { border-top: 4px solid var(--good); }
-        .bg-moderate { border-top: 4px solid var(--moderate); }
-        .bg-unhealthy-sensitive { border-top: 4px solid var(--unhealthy-sensitive); }
-        .bg-unhealthy { border-top: 4px solid var(--unhealthy); }
-        .bg-very-unhealthy { border-top: 4px solid var(--very-unhealthy); }
-        .bg-hazardous { border-top: 4px solid var(--hazardous); }
+        .aqi-good {
+            color: var(--good);
+        }
+
+        .aqi-moderate {
+            color: var(--moderate);
+        }
+
+        .aqi-unhealthy-sensitive {
+            color: var(--unhealthy-sensitive);
+        }
+
+        .aqi-unhealthy {
+            color: var(--unhealthy);
+        }
+
+        .aqi-very-unhealthy {
+            color: var(--very-unhealthy);
+        }
+
+        .aqi-hazardous {
+            color: var(--hazardous);
+        }
+
+        .bg-good {
+            border-top: 4px solid var(--good);
+        }
+
+        .bg-moderate {
+            border-top: 4px solid var(--moderate);
+        }
+
+        .bg-unhealthy-sensitive {
+            border-top: 4px solid var(--unhealthy-sensitive);
+        }
+
+        .bg-unhealthy {
+            border-top: 4px solid var(--unhealthy);
+        }
+
+        .bg-very-unhealthy {
+            border-top: 4px solid var(--very-unhealthy);
+        }
+
+        .bg-hazardous {
+            border-top: 4px solid var(--hazardous);
+        }
     </style>
 </head>
+
 <body>
     <header>
         <a href="download.html" class="download-btn">Download Data</a>
@@ -220,15 +256,15 @@
                 const response = await fetch(`data.json?t=${new Date().getTime()}`);
                 if (!response.ok) throw new Error('Data file not found');
                 const data = await response.json();
-                
+
                 const dashboard = document.getElementById('dashboard');
                 dashboard.innerHTML = '';
-                
+
                 // Process each city
                 for (const [city, records] of Object.entries(data)) {
                     // Get the most recent valid record (one that actually has an AQI)
                     if (!records || records.length === 0) continue;
-                    
+
                     let latest = null;
                     for (let i = records.length - 1; i >= 0; i--) {
                         if (records[i]['AQI+'] && records[i]['AQI+'] !== "") {
@@ -236,15 +272,15 @@
                             break;
                         }
                     }
-                    
+
                     if (!latest) continue;
-                    
+
                     const aqiValue = parseInt(latest['AQI+']) || 0;
                     const aqiInfo = getAQICategory(aqiValue);
-                    
+
                     const card = document.createElement('div');
                     card.className = `card bg-${aqiInfo.class}`;
-                    
+
                     card.innerHTML = `
                         <div class="card-header">
                             <div>
@@ -284,13 +320,13 @@
                     `;
                     dashboard.appendChild(card);
                 }
-                
+
                 if (dashboard.innerHTML === '') {
-                    dashboard.innerHTML = '<div class="loader">No data available yet. The scraper will run soon!</div>';
+                    dashboard.innerHTML = '<div class="loader">No data available yet.</div>';
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-                document.getElementById('dashboard').innerHTML = 
+                document.getElementById('dashboard').innerHTML =
                     `<div class="loader" style="color: var(--unhealthy);">
                         Failed to load data. The GitHub Action may not have run yet or you need to run the python script once to generate data.json.
                     </div>`;
@@ -301,4 +337,5 @@
         loadData();
     </script>
 </body>
+
 </html>

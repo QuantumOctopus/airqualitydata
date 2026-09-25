@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  scrape-and-deploy:
+  query-and-deploy:
     runs-on: windows-latest
     environment:
       name: github-pages
@@ -30,7 +30,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: Run Scraper
+      - name: Query AQI data
         env:
           WAQI_API_TOKEN: ${{ secrets.WAQI_API_TOKEN }}
         run: python query_waqi.py
