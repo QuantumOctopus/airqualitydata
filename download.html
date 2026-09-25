@@ -185,6 +185,7 @@
             dataArray.forEach(row => {
                 Object.keys(row).forEach(k => keysSet.add(k));
             });
+            keysSet.delete('City');
             const headers = ['City', ...Array.from(keysSet)];
             
             const csvRows = [];
