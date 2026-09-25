@@ -5,6 +5,7 @@ import re
 import json
 import pytz
 from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync
 
 CITIES = {
     "Blue Bell, PA": {"url": "https://www.iqair.com/usa/pennsylvania/blue-bell", "tz": "America/New_York"},
@@ -223,6 +224,7 @@ def main():
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
         page = context.new_page()
+        stealth_sync(page)
         
         for city, info in CITIES.items():
             try:

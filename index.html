@@ -169,7 +169,8 @@
     </style>
 </head>
 <body>
-    <header>
+    <header style="position: relative;">
+        <a href="download.html" style="position: absolute; top: 2rem; right: 2rem; background: var(--accent); color: var(--bg-color); padding: 0.5rem 1rem; text-decoration: none; border-radius: 0.5rem; font-weight: 600; transition: background 0.3s ease;">Download Data</a>
         <h1>Global Air Quality</h1>
         <p class="subtitle">Real-time AQI monitoring</p>
     </header>
@@ -200,9 +201,18 @@
                 
                 // Process each city
                 for (const [city, records] of Object.entries(data)) {
-                    // Get the most recent record
+                    // Get the most recent valid record (one that actually has an AQI)
                     if (!records || records.length === 0) continue;
-                    const latest = records[records.length - 1];
+                    
+                    let latest = null;
+                    for (let i = records.length - 1; i >= 0; i--) {
+                        if (records[i]['AQI+'] && records[i]['AQI+'] !== "") {
+                            latest = records[i];
+                            break;
+                        }
+                    }
+                    
+                    if (!latest) continue;
                     
                     const aqiValue = parseInt(latest['AQI+']) || 0;
                     const aqiInfo = getAQICategory(aqiValue);

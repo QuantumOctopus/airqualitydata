@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Data - Global Air Quality</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.3) 0, transparent 50%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            font-weight: 700;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+        .cities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: var(--bg-color);
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+        .btn:hover {
+            background: #7dd3fc;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .controls a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .controls a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">&larr; Back</a>
+    <div class="container">
+        <h1>Download Data</h1>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Select the cities you want to include in the CSV.</p>
+        
+        <div class="controls">
+            <a id="select-all">Select All</a>
+            <a id="deselect-all">Deselect All</a>
+        </div>
+        
+        <div class="cities-list" id="cities-container">
+            <div style="text-align: center; color: var(--text-muted);">Loading cities...</div>
+        </div>
+        
+        <button class="btn" id="download-btn">Download CSV</button>
+    </div>
+
+    <script>
+        let globalData = {};
+
+        async function loadCities() {
+            try {
+                const response = await fetch(`data.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('Data file not found');
+                globalData = await response.json();
+                
+                const container = document.getElementById('cities-container');
+                container.innerHTML = '';
+                
+                const cities = Object.keys(globalData).sort();
+                
+                if (cities.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: var(--text-muted);">No data available to download.</div>';
+                    document.getElementById('download-btn').disabled = true;
+                    return;
+                }
+
+                cities.forEach(city => {
+                    const label = document.createElement('label');
+                    label.className = 'checkbox-container';
+                    label.innerHTML = `
+                        <input type="checkbox" value="${city}" checked>
+                        ${city}
+                    `;
+                    container.appendChild(label);
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('cities-container').innerHTML = 
+                    `<div style="color: #ef4444; text-align: center;">Failed to load data.</div>`;
+            }
+        }
+
+        function convertToCSV(dataArray) {
+            if (dataArray.length === 0) return '';
+            
+            // Get all possible keys to form headers
+            const keysSet = new Set();
+            dataArray.forEach(row => {
+                Object.keys(row).forEach(k => keysSet.add(k));
+            });
+            const headers = ['City', ...Array.from(keysSet)];
+            
+            const csvRows = [];
+            csvRows.push(headers.join(','));
+            
+            dataArray.forEach(row => {
+                const values = headers.map(header => {
+                    if (header === 'City') return `"${row.City}"`;
+                    let val = row[header] !== undefined ? row[header] : '';
+                    // Escape quotes in value
+                    val = String(val).replace(/"/g, '""');
+                    return `"${val}"`;
+                });
+                csvRows.push(values.join(','));
+            });
+            
+            return csvRows.join('\\n');
+        }
+
+        document.getElementById('select-all').addEventListener('click', () => {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = true);
+        });
+
+        document.getElementById('deselect-all').addEventListener('click', () => {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        });
+
+        document.getElementById('download-btn').addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const selectedCities = Array.from(checkboxes).map(cb => cb.value);
+            
+            if (selectedCities.length === 0) {
+                alert('Please select at least one city.');
+                return;
+            }
+            
+            // Combine data
+            const combinedData = [];
+            selectedCities.forEach(city => {
+                const records = globalData[city] || [];
+                records.forEach(record => {
+                    combinedData.push({ City: city, ...record });
+                });
+            });
+            
+            const csvContent = convertToCSV(combinedData);
+            
+            // Trigger download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'air_quality_data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Initialize
+        loadCities();
+    </script>
+</body>
+</html>
