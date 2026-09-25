@@ -2,7 +2,7 @@ name: Scrape IQAir Data
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *' # Every 6 hours
+    - cron: '0 */4 * * *' # Every 4 hours
   workflow_dispatch:
 
 permissions:
