@@ -261,6 +261,20 @@
             "AQI+": 24,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-09-24",
+            "Time": "23:18:00",
+            "PM2.5 ug/m3": 4,
+            "Temp F": 62.6,
+            "Humidity": 95,
+            "Ozone ug/m3": "",
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 22,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
         }
     ],
     "New Delhi, India": [
@@ -301,6 +315,20 @@
             "Ozone ug/m3": 47,
             "NO2 ug/m3": 25.8,
             "SO2 ug/m3": 38.2,
+            "CO ug/m3": 627,
+            "AQI+": 77,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 42.6
+        },
+        {
+            "Date": "2026-09-25",
+            "Time": "09:48:00",
+            "PM2.5 ug/m3": 23.1,
+            "Temp F": 84.2,
+            "Humidity": 60,
+            "Ozone ug/m3": 47,
+            "NO2 ug/m3": 22.5,
+            "SO2 ug/m3": 25,
             "CO ug/m3": 627,
             "AQI+": 77,
             "Pri. Pollutant": "PM2.5",
@@ -349,6 +377,20 @@
             "AQI+": 24,
             "Pri. Pollutant": "Ozone",
             "PM10 ug/m3": 3.6
+        },
+        {
+            "Date": "2026-09-25",
+            "Time": "09:48:00",
+            "PM2.5 ug/m3": 15.5,
+            "Temp F": 75.2,
+            "Humidity": 71,
+            "Ozone ug/m3": 52,
+            "NO2 ug/m3": 11.3,
+            "SO2 ug/m3": 4.2,
+            "CO ug/m3": 275.5,
+            "AQI+": 63,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 3.6
         }
     ],
     "Chennai, India": [
@@ -386,6 +428,20 @@
             "PM2.5 ug/m3": 8.6,
             "Temp F": 84.2,
             "Humidity": 66,
+            "Ozone ug/m3": 50,
+            "NO2 ug/m3": 13.1,
+            "SO2 ug/m3": 9.8,
+            "CO ug/m3": 344.5,
+            "AQI+": 48,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 9.6
+        },
+        {
+            "Date": "2026-09-25",
+            "Time": "09:49:00",
+            "PM2.5 ug/m3": 8.6,
+            "Temp F": 84.2,
+            "Humidity": 65,
             "Ozone ug/m3": 50,
             "NO2 ug/m3": 13.1,
             "SO2 ug/m3": 9.8,
