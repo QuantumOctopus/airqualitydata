@@ -1,4 +1,4 @@
-name: Scrape IQAir Data
+name: Get Air Quality Data
 
 on:
   schedule:
