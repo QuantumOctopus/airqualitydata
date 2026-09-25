@@ -2,7 +2,7 @@ name: Scrape IQAir Data
 
 on:
   schedule:
-    - cron: '0 */4 * * *' # Every 4 hours
+    - cron: '0 0,4,8,12,16,20 * * *' # Runs at exactly these UTC hours
   workflow_dispatch:
 
 permissions:
@@ -29,10 +29,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          playwright install chromium
           
       - name: Run Scraper
-        run: python scrape_iqair.py
+        run: python query_waqi.py
         
       - name: Commit data.json
         run: |

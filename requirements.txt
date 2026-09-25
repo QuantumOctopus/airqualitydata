@@ -1,6 +1,4 @@
-playwright
 pandas
 openpyxl
 beautifulsoup4
 pytz
-playwright-stealth
