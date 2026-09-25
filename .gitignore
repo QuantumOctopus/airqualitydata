@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller folders
+build/
+dist/
+
+# PyInstaller spec
+*.spec
+
+# Test and debug outputs
+dump.html
+dump.txt
+screenshot.png
+
+# Virtual environments (just in case)
+venv/
+env/
+.env/
+
+# Data files
+*.xlsx
+IQAir.xlsx

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Air Quality Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --good: #4ade80;
+            --moderate: #facc15;
+            --unhealthy-sensitive: #fb923c;
+            --unhealthy: #ef4444;
+            --very-unhealthy: #a855f7;
+            --hazardous: #881337;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.3) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.3) 0, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .city-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .aqi-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .aqi-value {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 1rem;
+        }
+
+        .aqi-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .metric {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .loader {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        /* AQI Colors */
+        .aqi-good { color: var(--good); }
+        .aqi-moderate { color: var(--moderate); }
+        .aqi-unhealthy-sensitive { color: var(--unhealthy-sensitive); }
+        .aqi-unhealthy { color: var(--unhealthy); }
+        .aqi-very-unhealthy { color: var(--very-unhealthy); }
+        .aqi-hazardous { color: var(--hazardous); }
+        
+        .bg-good { background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), transparent); }
+        .bg-moderate { background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), transparent); }
+        .bg-unhealthy-sensitive { background: linear-gradient(135deg, rgba(251, 146, 60, 0.1), transparent); }
+        .bg-unhealthy { background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent); }
+        .bg-very-unhealthy { background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), transparent); }
+        .bg-hazardous { background: linear-gradient(135deg, rgba(136, 19, 55, 0.1), transparent); }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Global Air Quality</h1>
+        <p class="subtitle">Real-time AQI monitoring</p>
+    </header>
+
+    <main class="container" id="dashboard">
+        <div class="loader">Loading latest data...</div>
+    </main>
+
+    <script>
+        function getAQICategory(aqi) {
+            if (aqi <= 50) return { label: 'Good', class: 'good' };
+            if (aqi <= 100) return { label: 'Moderate', class: 'moderate' };
+            if (aqi <= 150) return { label: 'Unhealthy for Sensitive Groups', class: 'unhealthy-sensitive' };
+            if (aqi <= 200) return { label: 'Unhealthy', class: 'unhealthy' };
+            if (aqi <= 300) return { label: 'Very Unhealthy', class: 'very-unhealthy' };
+            return { label: 'Hazardous', class: 'hazardous' };
+        }
+
+        async function loadData() {
+            try {
+                // Add a cache buster to ensure we get the latest data
+                const response = await fetch(`data.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('Data file not found');
+                const data = await response.json();
+                
+                const dashboard = document.getElementById('dashboard');
+                dashboard.innerHTML = '';
+                
+                // Process each city
+                for (const [city, records] of Object.entries(data)) {
+                    // Get the most recent record
+                    if (!records || records.length === 0) continue;
+                    const latest = records[records.length - 1];
+                    
+                    const aqiValue = parseInt(latest['AQI+']) || 0;
+                    const aqiInfo = getAQICategory(aqiValue);
+                    
+                    const card = document.createElement('div');
+                    card.className = `card bg-${aqiInfo.class}`;
+                    
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div>
+                                <h2 class="city-name">${city}</h2>
+                                <div class="timestamp">${latest['Date']} ${latest['Time']}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="aqi-container">
+                            <div class="aqi-value aqi-${aqiInfo.class}">${latest['AQI+'] || 'N/A'}</div>
+                            <div>
+                                <div class="aqi-label aqi-${aqiInfo.class}">${aqiInfo.label}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                    Pri. Pollutant: ${latest['Pri. Pollutant'] || 'Unknown'}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-label">PM2.5</div>
+                                <div class="metric-value">${latest['PM2.5 ug/m3'] || '--'} <span style="font-size:0.7rem;font-weight:400">µg/m³</span></div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Temp</div>
+                                <div class="metric-value">${latest['Temp F'] || '--'} <span style="font-size:0.7rem;font-weight:400">°F</span></div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Humidity</div>
+                                <div class="metric-value">${latest['Humidity'] || '--'} <span style="font-size:0.7rem;font-weight:400">%</span></div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Ozone</div>
+                                <div class="metric-value">${latest['Ozone ug/m3'] || '--'} <span style="font-size:0.7rem;font-weight:400">µg/m³</span></div>
+                            </div>
+                        </div>
+                    `;
+                    dashboard.appendChild(card);
+                }
+                
+                if (dashboard.innerHTML === '') {
+                    dashboard.innerHTML = '<div class="loader">No data available yet. The scraper will run soon!</div>';
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('dashboard').innerHTML = 
+                    `<div class="loader" style="color: var(--unhealthy);">
+                        Failed to load data. The GitHub Action may not have run yet or you need to run the python script once to generate data.json.
+                    </div>`;
+            }
+        }
+
+        // Load data on start
+        loadData();
+    </script>
+</body>
+</html>
