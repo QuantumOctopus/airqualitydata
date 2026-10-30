@@ -1721,6 +1721,20 @@
             "AQI+": 52,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "14:00:00",
+            "PM2.5 ug/m3": 32,
+            "Temp F": 71.0,
+            "Humidity": 40.7,
+            "Ozone ug/m3": 37.6,
+            "NO2 ug/m3": 3,
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 38,
+            "Pri. Pollutant": "Ozone",
+            "PM10 ug/m3": ""
         }
     ],
     "Philadelphia, PA": [
@@ -3443,6 +3457,20 @@
             "SO2 ug/m3": 1.5,
             "CO ug/m3": 4.5,
             "AQI+": 43,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "15:00:00",
+            "PM2.5 ug/m3": 44,
+            "Temp F": 71.6,
+            "Humidity": 43.7,
+            "Ozone ug/m3": 32,
+            "NO2 ug/m3": 9.3,
+            "SO2 ug/m3": 1.5,
+            "CO ug/m3": 2.3,
+            "AQI+": 44,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
         }
@@ -5169,6 +5197,20 @@
             "AQI+": 53,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "14:00:00",
+            "PM2.5 ug/m3": 18,
+            "Temp F": 65.8,
+            "Humidity": 39,
+            "Ozone ug/m3": 30.4,
+            "NO2 ug/m3": 4.4,
+            "SO2 ug/m3": "",
+            "CO ug/m3": 1.8,
+            "AQI+": 18,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
         }
     ],
     "New York City, NY": [
@@ -6891,6 +6933,20 @@
             "SO2 ug/m3": "",
             "CO ug/m3": "",
             "AQI+": 65,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "14:00:00",
+            "PM2.5 ug/m3": 36,
+            "Temp F": 68.9,
+            "Humidity": 42.5,
+            "Ozone ug/m3": "",
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 36,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
         }
@@ -8617,6 +8673,20 @@
             "AQI+": 30,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "14:00:00",
+            "PM2.5 ug/m3": 12,
+            "Temp F": 63.0,
+            "Humidity": 54,
+            "Ozone ug/m3": 28.9,
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": 0.3,
+            "CO ug/m3": "",
+            "AQI+": 29,
+            "Pri. Pollutant": "Ozone",
+            "PM10 ug/m3": ""
         }
     ],
     "Chicago, IL": [
@@ -10339,6 +10409,20 @@
             "SO2 ug/m3": "",
             "CO ug/m3": "",
             "AQI+": 16,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
+        },
+        {
+            "Date": "2026-10-30",
+            "Time": "14:00:00",
+            "PM2.5 ug/m3": 15,
+            "Temp F": 0.1,
+            "Humidity": "",
+            "Ozone ug/m3": "",
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 15,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": ""
         }
@@ -12065,6 +12149,20 @@
             "AQI+": 122,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": 56
+        },
+        {
+            "Date": "2026-10-31",
+            "Time": "02:00:00",
+            "PM2.5 ug/m3": 151,
+            "Temp F": 73.8,
+            "Humidity": 92.3,
+            "Ozone ug/m3": 2.1,
+            "NO2 ug/m3": 23.8,
+            "SO2 ug/m3": 4.8,
+            "CO ug/m3": 14.5,
+            "AQI+": 151,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 79
         }
     ],
     "Bengaluru, India": [
@@ -13789,9 +13887,37 @@
             "AQI+": 53,
             "Pri. Pollutant": "PM2.5",
             "PM10 ug/m3": 27
+        },
+        {
+            "Date": "2026-06-23",
+            "Time": "10:00:00",
+            "PM2.5 ug/m3": 53,
+            "Temp F": 91.0,
+            "Humidity": 54,
+            "Ozone ug/m3": 5,
+            "NO2 ug/m3": 11.2,
+            "SO2 ug/m3": 4.1,
+            "CO ug/m3": 2.9,
+            "AQI+": 53,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": 27
         }
     ],
     "Chennai, India": [
+        {
+            "Date": "2025-03-04",
+            "Time": "17:00:00",
+            "PM2.5 ug/m3": 46,
+            "Temp F": 86.2,
+            "Humidity": 70.6,
+            "Ozone ug/m3": "",
+            "NO2 ug/m3": "",
+            "SO2 ug/m3": "",
+            "CO ug/m3": "",
+            "AQI+": 46,
+            "Pri. Pollutant": "PM2.5",
+            "PM10 ug/m3": ""
+        },
         {
             "Date": "2025-03-04",
             "Time": "17:00:00",
